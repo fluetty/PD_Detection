@@ -1,0 +1,64 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>PaperFormatDetection</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Content/CSS/bootstrap.min.css">
+    <link rel="stylesheet" href="/Content/CSS/style.css">
+    <link rel="stylesheet" href="/Content/CSS/common.css">
+    <link rel="stylesheet" href="/Content/CSS/header.css">
+    <script src="/Content/Scripts/jquery.min.js"></script>
+    <script src="/Content/Scripts/bootstrap.min.js"></script>
+</head>
+<body>
+    <header id="home" class="gradient-violat">
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/Index">
+                        <span class="logo-wraper logo-white">
+                            <img src="/Resource/images/Logo.png" alt="">论文格式检测
+                        </span>
+                    </a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav  navbar-right">
+                        <li class="active"><a href="/Index">首页 <span class="sr-only">(current)</span></a></li>
+                        <li><a href="/Guide">使用帮助</a></li>
+                        <li><a href="/Questions">常见问题</a></li>
+                        <li><a href="/Feedback">用户反馈</a></li>
+                        <li><a href="/Templates">论文模板</a></li>
+                        <li>
+                            <a href="/User/Login" class="btn-nav btn-nav-orange btn-nav-navbar btn-nav-reg" style="margin-top:5px;
+                                height:36px;line-height:0.5;">登 录</a>
+                        </li>
+                        <li>
+                            <a href="/User/Register" class="btn-nav btn-nav-orange btn-nav-navbar btn-nav-reg" style="margin-top:5px;
+                                height:36px;line-height:0.5;">注 册</a>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+    </header>
+    <div class="wrap">
+        @RenderBody();
+    </div>
+    <script src="/Content/Scripts/login.js"></script>
+</body>
+</html>

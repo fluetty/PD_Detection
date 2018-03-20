@@ -1,0 +1,98 @@
+﻿@model PaperFormatDetection.Models.Report
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<link href="/Content/CSS/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+<script src="/Content/Scripts/bootstrap-fileinput/fileinput.js" type="text/javascript"></script>
+<script src="/Content/Scripts/bootstrap-fileinput/locales/zh.js" type="text/javascript"></script>
+
+<div class="container margin-top-30">
+    <div class="row">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">检测中心</h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="upload-area col-lg-6">
+                    <div class="page-header">
+                        <h4>Bootstrap File Input Example</h4>
+                    </div>
+                    <div class="panel panel-success well">
+                        <form enctype="multipart/form-data">
+                            <div class="form-group">
+                                <input id="file-1" type="file" class="file"
+                                   data-overwrite-initial="false" >
+                            </div>
+                            <hr>
+                        </form>
+                    </div>
+                </div>
+                <div class="upload-area col-lg-6">
+                    <div class="page-header">
+                        <h4>Bootstrap File Input Example</h4>
+                    </div>
+                    <div class="panel panel-success well">
+                        <div class="panel-heading">    
+                            <a data-toggle="collapse" data-parent="#accordion"
+                                href="#cover">
+                                <h4 class="panel-title">封面</h4>
+                            </a>
+                        </div>
+                        <div id="cover" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
+                                nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
+                                lomo.
+                            </div>
+                        </div>
+
+                        <div class="panel-heading">
+                            <a data-toggle="collapse" data-parent="#accordion" class="collapse-a"
+                                href="#abstract">
+                                <h4 class="panel-title">摘要</h4>
+                            </a>
+                        </div>
+                        <div id="abstract" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
+                                nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
+                                lomo.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="panel-footer">
+                注意事项
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $("#file-1").fileinput({
+        language: 'zh',
+        browseClass: "btn btn-nav-orange",
+        uploadUrl: '/Paper/UploadPaper', // you must set a valid URL here else you will get an error
+        allowedFileExtensions : ['doc', 'docx'],
+        overwriteInitial: false,
+        maxFileSize: 3000,
+        maxFilesNum: 1,
+        //allowedFileTypes: ['image', 'video', 'flash'],
+        //previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+        slugCallback: function(filename) {
+            return filename.replace('(', '_').replace(']', '_');
+        }
+    });
+    $(document).ready(function() {
+        $("#test-upload").fileinput({
+            'showPreview' : false,
+            'allowedFileExtensions': ['doc', 'docx'],
+            'elErrorContainer': '#errorBlock'
+        });
+    });
+</script>

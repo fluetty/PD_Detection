@@ -1,0 +1,91 @@
+﻿<div class="bg">
+    <div class="login-area">
+        <div id="top">
+            用户登录
+        </div>
+        <div class="inputarea"><div class="space"></div><input id="username" type="text" placeholder="用户名" /></div>
+        <div class="inputarea1"><div class="space1"></div><input id="password" type="password" placeholder="密码" /></div>
+        <div id="autologo">
+            <div id="login-error">忘记密码？</div>
+            <div id="remember"><input name="rem" type="checkbox" value="" />记住密码</div>
+        </div>
+        <div id="prompt">密码错误</div>
+        <div id="login">登 录</div>
+        <div id="register">注 册</div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        Init();
+        $("#login").click(function () {
+            user = $("#username").val();
+            pwd = $("#password").val();
+            if (Validate(user, pwd)) {
+                Login(user, pwd);
+            }
+        });
+    });
+    function Validate(user, pwd) {
+        if (user == "" || pwd == "") {
+            document.getElementById("prompt").style.display = "block";
+            $("#prompt").html("电话号码或密码不能为空");
+            return false;
+        }
+        else return true;
+    }
+    function Login(user, pwd) {
+        $.post("/userlogin/", {
+            username: user,
+            password: pwd
+        },
+		function (data) {
+		    if (data.state == 0) {
+		        $("#login-error").html("该用户不存在")
+		    }
+		    else if (data.state == 1) {
+		        $("#login-error").html("密码错误")
+		    }
+		    else {
+		        $("#login-error").html("登录成功,正在跳转 ... ...")
+		        //alert(data.role);
+		        $.cookie('id', data.id, { path: "/" });
+		        $.cookie('name', data.name, { path: "/" });
+		        $.cookie('role', data.role, { path: "/" });
+		        setTimeout(function () {
+		            window.location.href = "/sport/"
+		        }, 2000)
+		    }
+		});
+    }
+    function Init() {
+        var H = $(document).height()-80;
+        $(".bg").css({
+            "height": H+'px'
+        });
+        $('#password').focus(function () {
+            $(".space1").css({
+                "background": 'url(/Resource/pwd1.png) no-repeat center center',
+                "background-size": "20px 20px"
+            });
+        });
+        $('#password').blur(function () {
+            $(".space1").css({
+                "background": 'url(/Resource/pwd.png) no-repeat center center',
+                "background-size": "20px 20px"
+            });
+        });
+        $('#username').focus(function () {
+            $(".space").css({
+                "background": 'url(/Resource/user1.png) no-repeat center center',
+                "background-size": "20px 20px"
+            });
+        });
+        $('#username').blur(function () {
+            $(".space").css({
+                "background": 'url(/Resource/user.png) no-repeat center center',
+                "background-size": "20px 20px"
+            });
+        });
+    }
+</script>

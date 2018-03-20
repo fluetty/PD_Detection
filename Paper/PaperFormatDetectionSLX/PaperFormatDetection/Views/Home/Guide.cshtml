@@ -1,0 +1,80 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_Index.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <h4>使用指南</h4>
+    </div>
+    <div class="row" style="margin-top:20px;">
+        <div class="col-lg-3 col-md-3">
+            <ul class="list-group">
+                <li class="list-group-item left-li li-active">免费注册</li>
+                <li class="list-group-item left-li">用户登录</li>
+                <li class="list-group-item left-li">论文上传与检测</li>
+                <li class="list-group-item left-li">报告查看与下载</li>
+                <li class="list-group-item left-li">报告说明</li>
+                <li class="list-group-item left-li">视频教程</li>
+            </ul>
+        </div>
+        <div class="col-lg-8 col-md-8">
+            <div class="switch-panel panel-active">
+                <h4>系统注册</h4>
+                <p>为了给您更好的体验，只有成功注册，才能使用本系统。注册方法如下：</p>
+            </div>
+            <div class ="switch-panel panel-hide">
+                <h4>用户登录</h4>
+                <p>为了给您更好的体验，只有成功注册，才能使用本系统。注册方法如下：</p>
+            </div>
+            <div class="switch-panel panel-hide">
+                <h4>论文上传与检测</h4>
+                <p>为了给您更好的体验，只有成功注册，才能使用本系统。注册方法如下：</p>
+            </div>
+            <div class="switch-panel panel-hide">
+                <h4>报告查看与下载</h4>
+                <p>为了给您更好的体验，只有成功注册，才能使用本系统。注册方法如下：</p>
+            </div>
+            <div class="switch-panel panel-hide">
+                <h4>报告说明</h4>
+                <p>为了给您更好的体验，只有成功注册，才能使用本系统。注册方法如下：</p>
+            </div>
+            <div class="switch-panel panel-hide">
+                <h4>视频教程</h4>
+                <p>如果您还有不清楚的地方，请观看本系统的视频教程：</p>
+                <div class="teach-video">
+                    <video id="teach_video" controls>
+                        <source src="/Resource/示例.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('.left-li').on('click', function () {
+            var index = $(this).index();
+            //alert($(this).index());
+            $(".left-li").removeClass("li-active");
+            $(this).addClass("li-active");
+            for (var i = 0; i < 6; i++)
+            {
+                $(".switch-panel")[i].style.display = "none";
+            }
+            var p= $(".switch-panel")[index];
+            p.style.display = "block";
+        })
+        //$("video").trigger("play");//for auto play
+        $("video").addClass('pause');//for check pause or play add a class
+        $('video').click(function () {
+            if ($(this).hasClass('pause')) {
+                $("video").trigger("play");
+                $(this).removeClass('pause');
+                $(this).addClass('play');
+            } else {
+                $("video").trigger("pause");
+                $(this).removeClass('play');
+                $(this).addClass('pause');
+            }
+        })
+    })
+</script>

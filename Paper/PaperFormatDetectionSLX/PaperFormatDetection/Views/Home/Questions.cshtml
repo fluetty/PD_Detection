@@ -1,0 +1,61 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_Index.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <h4>常见问题</h4>
+    </div>
+    <div class="row" style="margin-top:20px;">
+        <div class="col-lg-3 col-md-3">
+            <ul class="list-group">
+                <li class="list-group-item left-li li-active">如何注册？</li>
+                <li class="list-group-item left-li">如何登录？</li>
+                <li class="list-group-item left-li">检测出错？</li>
+                <li class="list-group-item left-li">上传文件失败</li>
+                <li class="list-group-item left-li">如何下载报告？</li>
+                <li class="list-group-item left-li">论文有哪些格式？</li>
+            </ul>
+        </div>
+        <div class="col-lg-8 col-md-8">
+            <div class="switch-panel panel-active">
+                <h4>如何注册？</h4>
+                <p>为了给您更好的体验，只有成功注册，才能使用本系统。注册方法如下：</p>
+            </div>
+            <div class="switch-panel panel-hide">
+                <h4>如何登录？</h4>
+                <p>为了给您更好的体验，只有成功注册，才能使用本系统。注册方法如下：</p>
+            </div>
+            <div class="switch-panel panel-hide">
+                <h4>检测出错？</h4>
+                <p>为了给您更好的体验，只有成功注册，才能使用本系统。注册方法如下：</p>
+            </div>
+            <div class="switch-panel panel-hide">
+                <h4>上传文件失败</h4>
+                <p>为了给您更好的体验，只有成功注册，才能使用本系统。注册方法如下：</p>
+            </div>
+            <div class="switch-panel panel-hide">
+                <h4>如何下载报告？</h4>
+                <p>为了给您更好的体验，只有成功注册，才能使用本系统。注册方法如下：</p>
+            </div>
+            <div class="switch-panel panel-hide">
+                <h4>论文有哪些格式？</h4>
+                <p>如果您还有不清楚的地方，请观看本系统的视频教程：</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('.left-li').on('click', function () {
+            var index = $(this).index();
+            //alert($(this).index());
+            $(".left-li").removeClass("li-active");
+            $(this).addClass("li-active");
+            for (var i = 0; i < 6; i++) {
+                $(".switch-panel")[i].style.display = "none";
+            }
+            var p = $(".switch-panel")[index];
+            p.style.display = "block";
+        })
+    })
+</script>
