@@ -31,12 +31,9 @@ namespace PaperFormatDetection.Controllers
         // GET: /Paper/UploadPaper
         [HttpPost]
         [Route("Paper/UploadPaper")]
-        public JsonResult Upload(FormCollection form)
+        public String Upload(FormCollection form)
         {
-            var resultList = new
-            {
-                uploadOK = "true"
-            };
+            int status = 1;
             if (Request.Files.Count == 0)
             {
                 //Request.Files.Count 文件数为0上传不成功
@@ -50,23 +47,33 @@ namespace PaperFormatDetection.Controllers
             }
             else
             {
-                //文件大小不为0
-                file = Request.Files[0];
-                //保存成自己的文件全路径,newfile就是你上传后保存的文件,
-                //服务器上的UpLoadFile文件夹必须有读写权限
-                string target = Server.MapPath("/") + ("/Data/Papers/");//取得目标文件夹的路径
-                string filename = file.FileName;//取得文件名字
-                string path = target + filename;//获取存储的目标地址
-                file.SaveAs(path);
-                //可执行文件的目录
-                string exeEnvironmentDir = @"C:/Users/Zhang_weiwei/Desktop/PAPER/PaperFormatDetection/PaperFormatDetection/PaperFormatDetection/bin/Debug";
-                Process proc = new Process();
-                proc.StartInfo.FileName = exeEnvironmentDir + "/PaperFormatDetection.exe";
-                //可以用绝对路径 
-                proc.StartInfo.Arguments = path + " " + exeEnvironmentDir;
-                proc.Start();
+                try
+                {
+                    //文件大小不为0
+                    file = Request.Files[0];
+                    //保存成自己的文件全路径,newfile就是你上传后保存的文件,
+                    //服务器上的UpLoadFile文件夹必须有读写权限
+                    string target = Server.MapPath("/") + ("/Data/Papers/");//取得目标文件夹的路径
+                    string filename = file.FileName;//取得文件名字
+                    string path = target + filename;//获取存储的目标地址
+                    string paperType = "1";
+                    file.SaveAs(path);
+                    //可执行文件的目录
+                    string exeEnvironmentDir = @"C:\\Users\\Zhang_weiwei\\Desktop\\PD_web\\Paper\\PaperFormatDetection\\PaperFormatDetection\\PaperFormatDetection\\bin\\Debug";
+                    Process proc = new Process();
+                    proc.StartInfo.FileName = exeEnvironmentDir + "/PaperFormatDetection.exe";
+                    //可以用绝对路径 
+                    proc.StartInfo.Arguments = path + " " + exeEnvironmentDir + "  " + paperType;
+                    proc.Start();
+                    proc.WaitForExit();
+                    status = 0;
+                }
+                catch (Exception e)
+                {
+
+                }
             }
-            return Json(resultList, JsonRequestBehavior.AllowGet);
+            return "{ \"status\" : " + status + " }";
         }
         [HttpGet]
         [Route("Paper/Download")]

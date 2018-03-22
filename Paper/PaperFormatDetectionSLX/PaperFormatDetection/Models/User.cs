@@ -27,6 +27,13 @@ namespace PaperFormatDetection.Models
         public int ErrorNum { get; set; }
         public string ReportName { get; set; }
     }
+    public class Feedback
+    {
+        public int FeedbackId { get; set; }
+        public int UserId { get; set; }
+        public DateTime FeedbackTime { get; set; }
+        public string Contents { get; set; }
+    }
     public class DBContext:DbContext
     {
         public DBContext()  : base("name=PaperFormatDetectionDB")

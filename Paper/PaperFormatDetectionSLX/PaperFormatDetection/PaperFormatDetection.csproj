@@ -260,7 +260,6 @@
     <Content Include="Content\themes\gly\theme.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Resource\images\-Logo.png" />
     <Content Include="Resource\images\1_back.png" />
     <Content Include="Resource\images\b1.png" />
     <Content Include="Resource\images\b2.png" />

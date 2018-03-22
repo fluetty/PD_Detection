@@ -1,28 +1,51 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout_Index.cshtml";
 }
-<section id="newsletter" class="padding-top-bottom-120">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 sunscription-wraper-outer col-md-offset-2 bg-fit" style="background: url(/Resource/images/newsletter.png)">
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2 padding-top-bottom-90">
-                        <div class="subscription-wraper text-center">
-                            <h4 class="text-upper">Subscribe newslatter</h4>
-                            <p>Enter your email address for our weekly new update</p>
-                            <form class="subscription-form">
-                                <div class="form-group">
-                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-                                </div>
-                                <a class="btn btn-orange border-none btn-rounded-corner" href="#">Subscribe  now<span class="icon-on-button"><i class="ion-ios-arrow-thin-right"></i></span></a>
-                            </form>
-                        </div>
+
+
+<div class="container margin-top-30">
+    <div class="row">
+        <div class="col-md-1"></div>
+            <div class=" col-md-10">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" style="height:40px;line-height:40px;">用户反馈</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            如果您在使用本系统的过程中遇到了任何问题，请在下方给我们留言，我们将在第一时间为您解决问题。当然
+                            如果您对本系统有任何建议，我们欢迎您提出建议帮助我们改进完善。
+                        </p>
+                        <form role="form" method="post" action="Feedback/submit">
+                            <div class="form-group">
+                                <textarea name="feedback" id="feedback" class="form-control" rows="5" placeholder="请输入您的反馈！(200字以内)"></textarea>
+                            </div>
+                            <div>
+                                <input type="submit" class="btn btn-success pull-right" value=" 提交" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="panel-footer">
+                        <p style="text-indent: 0em;">
+                            若情况紧急，可发送邮件至 Moflowers_zhang@163.com 或直接联系 15164064286。
+                        </p>
                     </div>
                 </div>
             </div>
-        </div>
     </div>
-</section>
+</div>
 <script type="text/javascript">
-
+    $(function () {
+        /*字数限制*/
+        $("#feedback").on("input propertychange", function () {
+            var $this = $(this),
+                _val = $this.val(),
+                count = "";
+            if (_val.length > 200) {
+                $this.val(_val.substring(0, 200));
+            }
+            count = 200 - $this.val().length;
+            $("#text-count").text(count);
+        });
+    })
 </script>
