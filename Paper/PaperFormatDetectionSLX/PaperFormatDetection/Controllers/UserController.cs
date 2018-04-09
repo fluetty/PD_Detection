@@ -13,7 +13,6 @@ namespace PaperFormatDetection.Controllers
     public class UserController : Controller
     {
         private DBContext db = new DBContext();
-
         // GET: /User/
         [Route("User/Login")]
         public ActionResult Login()
@@ -38,9 +37,27 @@ namespace PaperFormatDetection.Controllers
                 User user = u[0];
                 status = 0;
                 HttpCookie cook = new HttpCookie("userInfo");
+                cook.Values.Add("stuID", user.UserId.ToString());
                 cook.Values.Add("stuName",user.Name);
                 cook.Values.Add("stuNum", user.StuNum);
-                cook.Values.Add("stuType", user.StuType);
+                switch (user.StuType)
+                {
+                    case "undergraduate":
+                        cook.Values.Add("stuType", "本科");
+                        break;
+                    case "acdmaster":
+                        cook.Values.Add("stuType", "工学硕士");
+                        break;
+                    case "promaster":
+                        cook.Values.Add("stuType", "工程硕士");
+                        break;
+                    case "doctor":
+                        cook.Values.Add("stuType", "博士");
+                        break;
+                }
+                cook.Values.Add("school", user.School);
+                cook.Values.Add("grade", user.Grade.ToString());
+                cook.Values.Add("phone", user.Phone);
                 Response.SetCookie(cook);//若已有此cookie，更新内容  
                 Response.Cookies.Add(cook);//添加此cookie 
             }
@@ -56,7 +73,7 @@ namespace PaperFormatDetection.Controllers
             string Phone = Request.Form["Phone"];
             string StuType = Request.Form["StuType"];
             string School = Request.Form["School"];
-            string Grade = Request.Form["Grade"];
+            string Grade = Request.Form["Grade"]; 
             User user=new User();
             user.Name = Name;
             user.StuNum = StuNum;
@@ -87,13 +104,11 @@ namespace PaperFormatDetection.Controllers
         public ActionResult Logout()
         {
             HttpCookie cook = Request.Cookies["userInfo"];
-            if (cook != null)
-            {
-                cook.Expires = DateTime.Now.AddDays(-1);  
-            }
-            return View("../Home/Index");
+            //cook.Expires = DateTime.Now.AddDays(-1);  
+            cook.Expires = DateTime.Now.AddDays(-1);
+            Response.Cookies.Add(cook);
+            return RedirectToAction("Index","Home");//重定向
         }
-
 
 
         // GET: /User/Create

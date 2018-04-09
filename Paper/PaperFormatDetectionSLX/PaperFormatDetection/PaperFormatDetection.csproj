@@ -156,8 +156,10 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\PagingHelper.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\Util.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PaperController.cs" />
@@ -167,6 +169,8 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\PagingInfo.cs" />
+    <Compile Include="Models\Report.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -177,10 +181,12 @@
     <Content Include="Content\CSS\fileinput.css" />
     <Content Include="Content\CSS\fileinput.min.css" />
     <Content Include="Content\CSS\ionicons.min.css" />
+    <Content Include="Content\CSS\login.css" />
     <Content Include="Content\CSS\owl.carousel.css" />
     <Content Include="Content\CSS\owl.theme.css" />
     <Content Include="Content\CSS\header.css" />
     <Content Include="Content\CSS\style.css" />
+    <Content Include="Content\CSS\sweetalert.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\fonts\ionicons.svg" />
     <Content Include="Content\Scripts\bootstrap-fileinput\fileinput.js" />
@@ -246,6 +252,7 @@
     <Content Include="Content\Scripts\respond.min.js" />
     <Content Include="Content\Scripts\script.js" />
     <None Include="Content\Scripts\_references.js" />
+    <Content Include="Content\Scripts\sweetalert.min.js" />
     <Content Include="Content\themes\explorer-fa\theme.css" />
     <Content Include="Content\themes\explorer-fa\theme.js" />
     <Content Include="Content\themes\explorer-fa\theme.min.css" />
@@ -264,7 +271,9 @@
     <Content Include="Resource\images\b1.png" />
     <Content Include="Resource\images\b2.png" />
     <Content Include="Resource\images\b3.png" />
+    <Content Include="Resource\images\BG.png" />
     <Content Include="Resource\images\cta_bg.png" />
+    <Content Include="Resource\images\gradient.png" />
     <Content Include="Resource\images\hand_phone.png" />
     <Content Include="Resource\images\Lazy fox.png" />
     <Content Include="Resource\images\logo.png" />
@@ -300,7 +309,7 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\Paging.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Guide.cshtml" />
     <Content Include="Views\Home\Questions.cshtml" />
@@ -331,6 +340,7 @@
     <Content Include="Resource\Template\大连理工大学博士学位论文格式规范.docx" />
     <Content Include="Resource\Template\大连理工大学本科毕业论文模版.doc" />
     <Content Include="Resource\Template\大连理工大学硕士学位论文模版.doc" />
+    <None Include="Properties\PublishProfiles\WebConfig.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

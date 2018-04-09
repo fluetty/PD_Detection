@@ -7,23 +7,20 @@
     <div class="row">
         <div class="col-md-1"></div>
             <div class=" col-md-10">
-                <div class="panel panel-success">
+                <div class="panel panel-default detect-panel">
                     <div class="panel-heading">
-                        <h3 class="panel-title" style="height:40px;line-height:40px;">用户反馈</h3>
+                        <h3 class="panel-title panel-h3">用户反馈</h3>
                     </div>
                     <div class="panel-body">
                         <p>
                             如果您在使用本系统的过程中遇到了任何问题，请在下方给我们留言，我们将在第一时间为您解决问题。当然
                             如果您对本系统有任何建议，我们欢迎您提出建议帮助我们改进完善。
                         </p>
-                        <form role="form" method="post" action="Feedback/submit">
-                            <div class="form-group">
-                                <textarea name="feedback" id="feedback" class="form-control" rows="5" placeholder="请输入您的反馈！(200字以内)"></textarea>
-                            </div>
-                            <div>
-                                <input type="submit" class="btn btn-success pull-right" value=" 提交" />
-                            </div>
-                        </form>
+                        <div class="feedback-wrap" style="">
+                            <textarea name="feedback" id="feedback" class="form-control" rows="5" placeholder="请输入您的反馈！(200字以内)"></textarea>
+                            <span id="text-count"></span>
+                        </div>
+                        <div class="btn btn_orange" id="fd-btn" style="margin-top:5px;">提  交</div>
                     </div>
                     <div class="panel-footer">
                         <p style="text-indent: 0em;">
@@ -45,7 +42,55 @@
                 $this.val(_val.substring(0, 200));
             }
             count = 200 - $this.val().length;
-            $("#text-count").text(count);
+            $("#text-count").text("还可以输入"+count+"个字");
         });
+        $("#fd-btn").on("click", function () {
+            var contents = $("#feedback").val(); 
+            $.post("/Home/submitFeedback", {
+                Contents: contents
+            },
+            function (data) {
+                if (data.status == "OK") {
+                    $("#feedback").val("");
+                    swal({
+                        type: "success",
+                        title: "感谢您的反馈",
+                        timer: 1500
+                    });
+                }
+                else if (data.status == "UNLOGIN") {
+                    swal({
+                        type: "warning",
+                        title: "您还没有登录！",
+                        timer: 1500
+                    });
+                }
+                else {
+                    swal({
+                        type: "error",
+                        title: "提交失败",
+                        text: "请检查输入后尝试重试",
+                        timer: 1500
+                    });
+                }
+            });
+        });
+
+        function dialogue_success(data) {
+            swal({
+                type: "success",
+                title: "感谢您的反馈",
+                timer: 1500
+            });
+        }
+
+        function dialogue_fail(data) {
+            swal({
+                type: "error",
+                title: "提交失败",
+                text: "请检查输入后尝试重试",
+                timer: 1500
+            });
+        }
     })
 </script>

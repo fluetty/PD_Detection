@@ -6,40 +6,91 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using System.Net.Mail;
-using PaperFormatDetection.Models;
 using System.Diagnostics;
+using PaperFormatDetection.Models;
 
 namespace PaperFormatDetection.Controllers
 {
     public class PaperController : Controller
     {
         private DBContext db = new DBContext();
-
         // GET: /Paper/
-        [Route("Paper/Records")]
-        public ActionResult Records()
+        [Route("Paper/Records/{pageIndex=1}/{pageSize=10}")]
+        public ActionResult Records(int pageIndex , int pageSize )
         {
-            return View(db.Reports.ToList());
+            //获取当前分页数据集合
+            if (Request.Cookies["userInfo"] == null)
+            {
+                return RedirectToAction("Index", "Home");//重定向
+            }
+            int user_id = int.Parse(Request.Cookies["userInfo"]["stuID"]);
+            var reports = db.Reports
+                          .Where(p => p.UserId == user_id)
+                          .OrderBy(p => p.DetectTime)
+                          .Skip((pageIndex - 1) * pageSize)
+                          .Take(pageSize);
+
+            //将当前ViewModel传递给视图
+            return View(new ReportViewModel
+            {
+                Reports = reports,
+                PagingInfo = new PagingInfo
+                {
+                    TotalItems = db.Reports.Where(p => p.UserId == user_id).Count(),
+                    PageIndex = pageIndex,
+                    PageSize = pageSize
+                }
+            });
         }
+
+        public ActionResult Index(int pageIndex = 1, int pageSize = 5)
+        {
+            //获取当前分页数据集合
+            var reports = db.Reports
+                          .OrderBy(p => p.DetectTime)
+                          .Skip((pageIndex - 1) * pageSize)
+                          .Take(pageSize);
+
+            //将当前ViewModel传递给视图
+            return View(new ReportViewModel
+            {
+                Reports = reports,
+                PagingInfo = new PagingInfo
+                {
+                    TotalItems = db.Reports.Count(),
+                    PageIndex = pageIndex,
+                    PageSize = pageSize
+                }
+            });
+        }
+
         [Route("Paper/Detection")]
         public ActionResult Detection()
         {
-            return View();
+            HttpCookie cook = Request.Cookies["userInfo"];
+            if (cook != null)
+            {
+                ViewBag.paperType = Request.Cookies["userInfo"]["stuType"];
+                return View();
+            }
+            else
+            {
+                return View("~/Views/Home/Index.cshtml");
+            }
         }
-
         // GET: /Paper/UploadPaper
         [HttpPost]
         [Route("Paper/UploadPaper")]
-        public String Upload(FormCollection form)
+        public JsonResult Upload(FormCollection form)
         {
-            int status = 1;
+            string status = "NO";
             if (Request.Files.Count == 0)
             {
                 //Request.Files.Count 文件数为0上传不成功
                 //return View("Detection");
             }
             var file = Request.Files[0];
+            string _pdf=null;
             if (file.ContentLength == 0)
             {
                 //文件大小大（以字节为单位）为0时，做一些操作
@@ -49,40 +100,91 @@ namespace PaperFormatDetection.Controllers
             {
                 try
                 {
-                    //文件大小不为0
-                    file = Request.Files[0];
-                    //保存成自己的文件全路径,newfile就是你上传后保存的文件,
-                    //服务器上的UpLoadFile文件夹必须有读写权限
+                    string paperType=Request.Form["paperType"];
                     string target = Server.MapPath("/") + ("/Data/Papers/");//取得目标文件夹的路径
-                    string filename = file.FileName;//取得文件名字
+                    string filename = Util.GetTimeStamp() + "_" + file.FileName;//取得文件名字
                     string path = target + filename;//获取存储的目标地址
-                    string paperType = "1";
+                    //paperType = "1";
                     file.SaveAs(path);
                     //可执行文件的目录
-                    string exeEnvironmentDir = @"C:\\Users\\Zhang_weiwei\\Desktop\\PD_web\\Paper\\PaperFormatDetection\\PaperFormatDetection\\PaperFormatDetection\\bin\\Debug";
+                    string exeEnvironmentDir = @"C:/Users/Zhang_weiwei/Desktop/PD_web/Paper/PaperFormatDetection/PaperFormatDetection/bin/Debug";
                     Process proc = new Process();
                     proc.StartInfo.FileName = exeEnvironmentDir + "/PaperFormatDetection.exe";
                     //可以用绝对路径 
-                    proc.StartInfo.Arguments = path + " " + exeEnvironmentDir + "  " + paperType;
+                    proc.StartInfo.Arguments = path + "  " + paperType;
+                    //proc.StartInfo.CreateNoWindow = true;
+                    proc.StartInfo.UseShellExecute = false;
                     proc.Start();
                     proc.WaitForExit();
-                    status = 0;
+                    //保存数据库
+                    _pdf = filename.Replace(".docx", ".pdf").Replace(".doc", ".pdf");
+                    if(System.IO.File.Exists(Server.MapPath("/") + ("/Data/Reports/")+_pdf))
+                    {
+                        Report report = new Report();
+                        report.UserId = int.Parse(Request.Cookies["userInfo"]["stuID"]);
+                        report.PaperName = filename;
+                        report.DetectTime = DateTime.Now;
+                        report.ErrorNum = 0;
+                        report.ReportName = _pdf;
+                        db.Reports.Add(report);
+                        db.SaveChanges();
+                        status = "OK";
+                    }
+                    else
+                    {
+                        status = "NO";
+                    }
                 }
                 catch (Exception e)
                 {
 
                 }
             }
-            return "{ \"status\" : " + status + " }";
+            var result = new
+            {
+                STATUS = status,
+                REPORT = "/Data/Reports/" + _pdf
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
-        [Route("Paper/Download")]
-        public FileResult download()
+        [Route("Paper/Download/{id}")]
+        public FileResult download(int id)
         {
-            string filePath = Server.MapPath("/") + ("/Data/Reports/大连理工大学博士学位论文模板.docx");//路径
-            return File(filePath, "text/plain", "大连理工大学博士学位论文模板.docx"); //客户端保存的名字
+            string reportName = db.Reports.Find(id).ReportName;
+            string filePath = Server.MapPath("/") + ("/Data/Reports/" + reportName);//路径
+            return File(filePath, "text/plain", reportName); //客户端保存的名字
         }
+        [HttpPost]
+        [Route("Home/submitFeedback")]
+        public JsonResult submitFeedback()
+        {
+            string s = "NO";
+            if (Request.Cookies["userInfo"]==null)
+                s = "UNLOGIN";
+            else
+            {
+                try
+                {
+                    Feedback fd = new Feedback();
+                    fd.UserId = int.Parse(Request.Cookies["userInfo"]["stuID"]);
+                    fd.FeedbackTime = DateTime.Now;
+                    fd.Contents = Request.Form["Contents"];
+                    db.Feedbacks.Add(fd);
+                    db.SaveChanges();
+                    s = "OK";
+                }
+                catch (Exception e)
+                {
 
+                }
+            }
+            var result = new
+            {
+                status = s
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
 
 
 
@@ -98,7 +200,7 @@ namespace PaperFormatDetection.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,PaperName,DetectTime,ErrorNum,ReportName")] Report report)
+        public ActionResult Create([Bind(Include = "Id,PaperName,DetectTime,ErrorNum,ReportName")] Report report)
         {
             if (ModelState.IsValid)
             {
@@ -130,7 +232,7 @@ namespace PaperFormatDetection.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,PaperName,DetectTime,ErrorNum,ReportName")] Report report)
+        public ActionResult Edit([Bind(Include = "Id,PaperName,DetectTime,ErrorNum,ReportName")] Report report)
         {
             if (ModelState.IsValid)
             {

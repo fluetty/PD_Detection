@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 @{
     Layout = null;
 }
@@ -17,11 +18,11 @@
     <link rel="stylesheet" href="/Content/CSS/owl.theme.css">
     <link rel="stylesheet" href="/Content/CSS/style.css">
     <link rel="stylesheet" href="/Content/CSS/ionicons.min.css">
-    <link rel="stylesheet" href="/Content/CSS/common.css">
+    <link rel="stylesheet" href="/Content/CSS/login.css">
 </head>
 <body>
     <header id="home" class="gradient-violat">
-        <nav class="navbar navbar-default navbar-fixed-top">
+        <nav class="navbar navbar-default @*navbar-fixed-top*@">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -47,9 +48,24 @@
                         <li><a href="/Feedback">用户反馈</a></li>
                         <li><a href="/Templates">论文模板</a></li>
                         @*<li><a href="/User/Login" class="btn btn-orange btn-navbar btn-reg" style="margin-top:5px;
-                                height:36px;line-height:0.4;">登 录</a></li>*@
-                        <li><a href="/User/Register" class="btn btn-orange btn-navbar btn-reg" style="margin-top:5px;
-                                height:36px;line-height:0.4;">注 册</a></li>
+                            height:36px;line-height:0.4;">登 录</a></li>*@
+                        @{
+                            HttpCookie cook = Request.Cookies["userInfo"];
+                            if (cook != null)
+                            {
+                                <li>
+                                    <a href="/Paper/Detection" class="btn btn-orange btn-navbar btn-reg" style="margin-top:5px;
+                                        height:36px;line-height:0.4;">检测中心</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="/User/Register" class="btn btn-orange btn-navbar btn-reg" style="margin-top:5px;
+                                        height:36px;line-height:0.4;">注 册</a>
+                                </li>
+                            }
+                        }
                     </ul>
                 </div><!-- /.navbar-collapse -->
                 <hr class="navbar-divider">
@@ -60,146 +76,50 @@
         <div id="home-slider">
             <div>
                 <div class="container">
-                    <div class="row" style="margin-top:180px;padding-bottom:100px;">
-                            <div class="col-lg-8 text-center">
-                                <h2 class="cta-heading text-white">大连理工大学学位论文格式检测</h2>
-                                <p class="text-white slider-para" >博士，硕士，本科学位论文一站式检测</p>
-                                <p class="text-white slider-para">快速准确，免费使用</p>
-                                <p class="text-white slider-para">为大工学子毕业保驾护航！</p>
-                                <img class="img-responsive" src="/Resource/images/mockuo2.png" />
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="login-area">
-                                    <div id="top">
-                                        用户登录
-                                    </div>
-                                    <div class="inputarea"><div class="space"></div><input id="username" type="text" placeholder="用户名" /></div>
-                                    <div class="inputarea"><div class="space1"></div><input id="password" type="password" placeholder="密码" /></div>
-                                    <div id="autologo">
-                                        <div id="login-error">忘记密码？</div>
-                                        <div id="prompt">密码错误</div>
-                                    </div>
-                                    <div id="login">登 录</div>
-                                    <div id="otherLogin">
-                                        <span>第三方登录</span>
-                                        <span id="qq_login"></span>
-                                        <span id="weixin_login"></span>
-                                        <span id="weibo_login"></span>
-                                    </div>
-                                    @*<div id="register">注 册</div>*@
+                    <div class="row" style="margin-top:40px;padding-bottom:100px;">
+                        <div class="col-lg-8 text-center">
+                            <h2 class="cta-heading text-white">大连理工大学学位论文格式检测</h2>
+                            <p class="text-white slider-para" style="margin-top:30px;">博士，硕士，本科学位论文</p>
+                            <p class="text-white slider-para">一站式检测平台</p>
+                            <img class="img-responsive" src="/Resource/images/mockuo2.png" />
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="login-area">
+                                <div id="top">
+                                    用户登录
                                 </div>
+                                <div class="inputarea"><div class="space"></div><input id="username" type="text" placeholder="用户名" /></div>
+                                <div class="inputarea"><div class="space1"></div><input id="password" type="password" placeholder="密码" /></div>
+                                <div id="autologo">
+                                    <div id="login-error">忘记密码？</div>
+                                    <div id="prompt">密码错误</div>
+                                </div>
+                                <div id="login">登 录</div>
+                                <div id="otherLogin">
+                                    <span>第三方登录</span>
+                                    <span id="qq_login"></span>
+                                    <span id="weixin_login"></span>
+                                    <span id="weibo_login"></span>
+                                </div>
+                                @*<div id="register">注 册</div>*@
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            @*<div>
-                <div class="sliding-card-with-bottom-image text-center padding-top-90">
-                    <h2 class="cta-heading text-white">Lazy Fox HTML5 Landing page</h2>
-                    <p class="text-white slider-para">Awesome Stylish Template Powered By THEMEWAGON</p>
-                    <div class="cta-btn-group">
-                        <a class="btn btn-orange border-none btn-rounded-corner" href="#">Download <span class="icon-on-button"><i class="ion-ios-cloud-download-outline"></i></span></a>
-                        <a class="btn-video text-white" href="#"><span class="icon-rounded bordered-ios"><i class="ion-ios-play-outline"></i></span>watch tutorial</a>
-                    </div>
-                    <div class="image-container text-center sm-display-none">
-                        <img class="img-responsive" src="/Resource/images/mockuo2.png" alt="">
-                    </div>
-                </div>
-            </div>*@
-        </div>
-    </section>
-    <section id="feature" class="padding-top-bottom-120 bg-image-fit-50" style="background: url(Resource/images/1_back.png)">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="feature-wiget">
-                        <div class="icon-wraper">
-                            <i class="ion-settings"></i>
-                        </div>
-                        <div class="content">
-                            <h4 class="bottom-line">Easily Cutomised</h4>
-                            <p>Easily customise Sedna to suit your start up, portfolio or is product. Take advantage of the layered Sketch file and bring your product to life.</p>
-                        </div>
-                    </div>
-                    <div class="feature-wiget">
-                        <div class="icon-wraper">
-                            <i class="ion-calendar"></i>
-                        </div>
-                        <div class="content">
-                            <h4 class="bottom-line">MODERN DESIGN</h4>
-                            <p>Designed with modern trends and techniques in mind, Sedna will help your product stand out in an already saturated market.</p>
-                        </div>
-                    </div>
-                    <div class="feature-wiget">
-                        <div class="icon-wraper">
-                            <i class="ion-ipad"></i>
-                        </div>
-                        <div class="content">
-                            <h4 class="bottom-line">RESPONSIVE DEVELOPMENT</h4>
-                            <p>Built using the latest web technologies like html5, css3, and jQuery, rest assured Sedna will look smashing on every device under the sun.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section><div class="copyrights">Collect from <a href="http://www.cssmoban.com/">手机网站模板</a></div>
-    <section id="services" class="padding-top-90">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <img class="img-responsive sm-display-none" src="/Resource/images/hand_phone.png" alt="">
-                </div>
-                <div class="col-md-8">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="heading-wraper text-center margin-bottom-80">
-                                <h4>best services</h4>
-                                <hr class="heading-devider gradient-orange">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6">
-                            <h5 class="service-title">RESPONSIVE DEVELOPMENT</h5>
-                            <p class="services-content margin-bottom-25">Built using the latest web technologies like html5, css3, and jQuery, rest assured Sedna will look smashing on every device under the sun.</p>
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <h5 class="service-title">RESPONSIVE DEVELOPMENT</h5>
-                            <p class="services-content margin-bottom-25">Built using the latest web technologies like html5, css3, and jQuery, rest assured Sedna will look smashing on every device under the sun.</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6">
-                            <h5 class="service-title">RESPONSIVE DEVELOPMENT</h5>
-                            <p class="services-content margin-bottom-25">Built using the latest web technologies like html5, css3, and jQuery, rest assured Sedna will look smashing on every device under the sun.</p>
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <h5 class="service-title">RESPONSIVE DEVELOPMENT</h5>
-                            <p class="services-content margin-bottom-25">Built using the latest web technologies like html5, css3, and jQuery, rest assured Sedna will look smashing on every device under the sun.</p>
-                        </div>
-                    </div>
+            <div>
+                <div class="text-center">
+                    <h2 class="cta-heading text-white">大连理工大学学位论文格式检测</h2>
+                    <p class="text-white slider-para" style="margin-top:30px;">博士，硕士，本科学位论文</p>
+                    <p class="text-white slider-para">一站式检测平台</p>
+                    <img class="img-responsive" src="/Resource/images/mockuo2.png" style="margin: 0 auto;" />
                 </div>
             </div>
         </div>
     </section>
-    <section id="cta" class="gradient-violat cta padding-top-bottom-90">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <h3 class="cta-heading text-white">Lazy Fox HTML5 Landing page</h3>
-                    <p class="text-white">Smooth Scroll and Gradient style</p>
-                    <div class="cta-btn-group">
-                        <a class="btn-video text-white" href="#cta">
-                            <span class="icon-rounded bordered-ios">
-                                <i class="ion-ios-play-outline"></i>
-                            </span>观看视频教程
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section id="blog-card" class="padding-top-bottom-90">
+
+    <section id="blog-card" class="padding-top-bottom-90" style="background: url(/Resource/images/newsletter.png) no-repeat;background-size: cover;">
         <div class="container">
             <div class="heading-wraper text-center margin-bottom-80">
                 <h4>关于系统</h4>
@@ -208,37 +128,37 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="card">
-                        <img class="card-img-top img-responsive max-width-100" src="/Resource/images/b1.png" alt="Card image cap">
+                        <img class="card-img-top img-responsive max-width-100" src="/Resource/images/doctor1.jpg" alt="Card image cap">
                         <div class="card-block">
-                            <p class="card-text"><small class="text-muted blog-category">web design</small></p>
-                            <h4 class="card-title">Make your website with best web Tools.</h4>
-                            <p class="card-text"><small class="text-muted italic">21<sup>st</sup> jun 2016</small></p>
-                            <p class="card-text">Built using the latest web technologies like html5, css3, and jQuery, rest assured Sedna will look smashing on every device under the sun.</p>
-                            <a href="" class="btn btn-link">read more <span><i class="ion-ios-arrow-thin-right"></i></span> </a>
+                            <h4 class="card-title">类型全面</h4>
+                            <p class="card-text">
+                                本系统实现本科，硕士（包括专业硕士和学术硕士）和博士学位论文的一站式检测，
+                                可以满足不同学位类型的学生对于论文格式检测的需求。
+                            </p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card">
-                        <img class="card-img-top img-responsive max-width-100" src="/Resource/images/b2.png" alt="Card image cap">
+                        <img class="card-img-top img-responsive max-width-100" src="/Resource/images/doctor2.jpg" alt="Card image cap">
                         <div class="card-block">
-                            <p class="card-text"><small class="text-muted blog-category">web design</small></p>
-                            <h4 class="card-title">Make your website with best web Tools.</h4>
-                            <p class="card-text"><small class="text-muted italic">21<sup>st</sup> jun 2016</small></p>
-                            <p class="card-text">Built using the latest web technologies like html5, css3, and jQuery, rest assured Sedna will look smashing on every device under the sun.</p>
-                            <a href="" class="btn btn-link">read more <span><i class="ion-ios-arrow-thin-right"></i></span> </a>
+                            <h4 class="card-title">涵盖面广</h4>
+                            <p class="card-text">
+                                针对不同类型学位论文的各个模块进行了检测，包括论文封面，目录，摘要，
+                                正文，参考文献，图，表和页眉页脚等，基本囊括各种论文的所有模块。
+                            </p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card">
-                        <img class="card-img-top img-responsive max-width-100" src="/Resource/images/b3.png" alt="Card image cap">
+                        <img class="card-img-top img-responsive max-width-100" src="/Resource/images/write.jpg" alt="Card image cap">
                         <div class="card-block">
-                            <p class="card-text"><small class="text-muted blog-category">web design</small></p>
-                            <h4 class="card-title">Make your website with best web Tools.</h4>
-                            <p class="card-text"><small class="text-muted italic">21<sup>st</sup> jun 2016</small></p>
-                            <p class="card-text">Built using the latest web technologies like html5, css3, and jQuery, rest assured Sedna will look smashing on every device under the sun.</p>
-                            <a href="" class="btn btn-link">read more <span><i class="ion-ios-arrow-thin-right"></i></span> </a>
+                            <h4 class="card-title">内容细致</h4>
+                            <p class="card-text">
+                                对论文的不同模块的多项内容进行检测，包括段落缩进，段前短后行间距，字体字号等，
+                                除此之外，针对论文模板的各项标准都进行检测。
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -246,131 +166,67 @@
             </div>
         </div>
     </section>
+
     <section id="testimonial" class="testimonial-section padding-top-bottom-90 gradient-violat">
         <div class="container">
             <div class="heading-wraper text-center">
-                <h4 class="text-white">使用指南</h4>
+                <h4 class="text-white">系统特性</h4>
                 <hr class="heading-devider gradient-orange">
             </div>
             <div class="row">
-                <div class="col-md-10 col-md-offset-1">
-                    <div id="testimonial-carousel" class="owl-carousel">
-                        <div>
-                            <div class="testimonial-container">
-                                <div class="client-details text-center">
-                                    <img src="/Resource/images/doctor.jpg" alt="">
-                                    <h5 class="client-name">第一步：用户注册</h5>
-                                </div>
-                                <div class="testimonial-content">
-                                    <p><i class="ion-quote"></i></p>
-                                    <p class="testimonial-speech">在首页点击注册按钮进入注册页面，按照要求正确填写个人注册信息之后，
-                                    若注册成功会自动转向登录页面。</p>
-                                </div>
-                                <div class="client-details text-center">
-                                    <h5 class="client-name">第二步：系统登录</h5>
-                                </div>
-                                <div class="testimonial-content">
-                                    <p><i class="ion-quote"></i></p>
-                                    <p class="testimonial-speech">根据您的注册信息，填写正确的学号和密码，就可以完成登录。
-                                    若您忘记密码可以点击忘记密码链接根据提示找回密码。</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="testimonial-container">
-                                <div class="client-details text-center">
-                                    <img src="/Resource/images/doctor.jpg" alt="">
-                                    <h5 class="client-name">第三步：论文检测</h5>
-                                </div>
-                                <div class="testimonial-content">
-                                    <p><i class="ion-quote"></i></p>
-                                    <p class="testimonial-speech">成功登录系统后，进入论文检测界面，按要求上传需要检测的论文，并选择论文的类型，
-                                    点击上传，上传成功后，系统会对您上传的论文进行检测，并生成检测报告。检测大约耗时十几秒。</p>
-                                </div>
-                                <div class="client-details text-center">
-                                    <h5 class="client-name">第四步：报告下载</h5>
-                                </div>
-                                <div class="testimonial-content">
-                                    <p><i class="ion-quote"></i></p>
-                                    <p class="testimonial-speech">系统检测完成后，在检测历史界面，可以看到所有的检测历史，
-                                    您可以根据需要选择查看或者下载报告。注意，检测报告只会保存七天，请及时下载。</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="testimonial-container">
-                                <div class="client-details text-center">
-                                    <img src="/Resource/images/doctor.jpg" alt="">
-                                    @*<div class="cta-btn-group" id="video">
-                                        <a class="btn-video text-pink" href="#testimonial">
-                                            <span class="icon-rounded bordered-ios">
-                                                <i class="ion-ios-play-outline"></i>
-                                            </span>观看视频教程
-                                        </a>
-                                    </div>*@
-                                </div>
-                                <div class="testimonial-content">
-                                    <video id="teach_video" width="600" height="320" controls autoplay>
-                                        <source src="/Resource/示例.mp4" type="video/mp4">
-                                    </video>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-md-4 text-right feature">
+                    <h4 class="text-white">快速准确</h4>
+                    <p class="text-whitered">
+                        系统在一分钟时间之内可以完成一篇论文的检测并生成错误报告，检测快速效率高，方便您修改之后反复检测。
+                        检测具有很高的准确性，误报/漏报率极低
+                    </p>
+                </div>
+                <div class="col-md-4 text-center"></div>
+                <div class="col-md-4 text-left feature">
+                    <h4 class="text-white">免费安全</h4>
+                    <p class="text-whitered">
+                        本系统不收取任何费用，完全免费，旨在为大连理工大学全校学生提供论文格式检测服务，使毕业论文格式规
+                        范标准。且我们保证保护广大学生的隐私，保证所上传论文的绝对隐私安全，绝不向外泄露
+                    </p>
                 </div>
             </div>
-        </div>
-    </section>
-    <section id="customer-support" class="overflow-x-hidden">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="image-wraper">
-                    <img class="img-responsive" src="/Resource/images/support.png" alt="">
-                </div>
-            </div>
-            <div class="col-md-5">
-                <div class="customer-support-content padding-top-bottom-120 sm-padding-top-bottom-50-75">
-                    <h4>24/7 Customer Support</h4>
-                    <p class="margin-top-bottom-30">Built using the latest web technologies like html5, css3, and jQuery, rest assured Sedna will look smashing on every device under the sun.Built using the latest web technologies like html5, css3, and jQuery, rest assured Sedna will look smashing on every device under the sun.</p>
-                    <a class="btn btn-orange border-none btn-rounded-corner" href="#">need our help ? let's chat<span class="icon-on-button"><i class="ion-ios-arrow-thin-right"></i></span></a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section id="newsletter" class="padding-top-bottom-120 newsletter">
-        <div class="container">
             <div class="row">
-                <div class="col-md-8 sunscription-wraper-outer col-md-offset-2 bg-fit" style="background: url(/Resource/images/newsletter.png)">
-                    <div class="row">
-                        <div class="col-md-8 col-md-offset-2 padding-top-bottom-90">
-                            <div class="subscription-wraper text-center">
-                                <h4 class="text-upper">Subscribe newslatter</h4>
-                                <p>Enter your email address for our weekly new update</p>
-                                <form class="subscription-form">
-                                    <div class="form-group">
-                                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-                                    </div>
-                                    <a class="btn btn-orange border-none btn-rounded-corner" href="#">Subscribe  now<span class="icon-on-button"><i class="ion-ios-arrow-thin-right"></i></span></a>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-md-4 text-center"></div>
+                <div class="col-md-4 text-center detection-img"></div>
+                <div class="col-md-4 text-center"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 text-right feature">
+                    <h4 class="text-white">详细的错误报告</h4>
+                    <p class="text-whitered">
+                        论文检测完成之后会自动生成错误报告，错误报告为pdf格式，支持在线预览和下载，错误报告按照论文的模块
+                        进行划分，每条错误报告包括错误提示及具体位置，方便您的修改
+                    </p>
+                </div>
+                <div class="col-md-4 text-center"></div>
+                <div class="col-md-4 text-left feature">
+                    <h4 class="text-white">智能的错误分析</h4>
+                    <p class="text-whitered">
+                        系统根据错误报告，统计论文各个模块以及各种类型的错误，经过智能化算法分析给您提出正确合理的修改意见，
+                        并以可视化的图形展示给您。
+                    </p>
                 </div>
             </div>
         </div>
     </section>
+
     <footer class="padding-top-120">
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
                     <div class="footer-left-content">
                         <div class="logo-colored">
-                            <img src="/Resource/images/Logo_color.png" alt="">lazy fox
+                            <img src="/Resource/images/Logo_color.png" alt="">PFD
                         </div>
                         <div class="content">
-                            <p class="margin-bottom-30 margin-top-30">Built using the latest web technologies like css3, and jQuery, rest assured Sedna look.</p>
-                            <p>+88456895872, +88456595572</p>
-                            <p>example@mail.com. lazyfox@mail.com</p>
+                            <p class="margin-bottom-30 margin-top-30">对系统有任何疑问或建议，可到用户反馈栏进行反馈，也可通过以下方式联系。</p>
+                            <p>+15164064286</p>
+                            <p>Moflowers_zhang@163.com</p>
                         </div>
                     </div>
                 </div>
@@ -435,11 +291,33 @@
             <i class="ion-ios-arrow-thin-up"></i>
         </div>
     </div>
-     @*jQuery first, then Tether, then Bootstrap JS.*@ 
+    @*jQuery first, then Tether, then Bootstrap JS.*@
     <script src="/Content/Scripts/jquery.min.js"></script>
     <script src="/Content/Scripts/bootstrap.min.js"></script>
     <script src="/Content/Scripts/owl.carousel.min.js"></script>
     <script src="/Content/Scripts/script.js"></script>
     <script src="/Content/Scripts/login.js"></script>
+    <script type="text/javascript">
+        function gdjz(div, offset) {
+            var a, b, c, d;
+            d = $(div).offset().top;//元素相对于窗口的距离
+            a = eval(d + offset);
+            b = $(window).scrollTop();//监控窗口已滚动的距离;
+            c = $(window).height(); //浏览器窗口的高度
+            if (b +c > d) {
+                $(".feature").show(1000);
+            }
+            else {
+                $(".feature").hide();
+            }
+        }
+
+        $(document).ready(function (e) {
+            $(window).scroll(function () {
+                gdjz("#testimonial",  100);
+                }
+            );
+        });
+    </script>  
 </body>
 </html>

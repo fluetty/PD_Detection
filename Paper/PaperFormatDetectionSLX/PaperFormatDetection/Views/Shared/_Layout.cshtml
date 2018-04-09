@@ -48,10 +48,21 @@
                         <li class="active"><a href="/Index">首页 <span class="sr-only">(current)</span></a></li>
                         <li><a href="/Paper/Detection">论文检测</a></li>
                         <li><a href="/Paper/Records">检测历史</a></li>
-                        <li><a href="#feature">查看报告</a></li>
-                        <li><a href="#feature">个人信息</a></li>
-                        <li id="_register"><a href="/User/Logout" class="btn-nav btn-nav-orange btn-nav-navbar btn-nav-reg" style="margin-top:8px;
-                                height:36px;line-height:0.5;">退出登录</a>
+                        <li><a href="#">报告分析</a></li>
+                        <li id="logout">
+                            <img src="/Resource/images/user.jpg" />
+                            <div id="info">
+                                <table class="table table-striped table-hover">
+                                    <tr><td style="text-align:center;font-size:14px;padding-left:15px;">@cook["stuName"] 欢迎登录</td></tr>
+                                    <tr><td style="text-align:left;font-size:14px;padding-left:15px;">学号:&nbsp; @cook["stuNum"]</td></tr>
+                                    <tr><td style="text-align:left;font-size:14px;padding-left:15px;">学校:&nbsp; @cook["school"]</td></tr>
+                                    <tr><td style="text-align:left;font-size:14px;padding-left:15px;">年级:&nbsp; @cook["grade"]</td></tr>
+                                    <tr><td style="text-align:left;font-size:14px;padding-left:15px;">学生类型:&nbsp; @cook["stuType"]</td></tr>
+                                    <tr><td style="text-align:left;font-size:14px;padding-left:15px;">联系电话:&nbsp; @cook["phone"]</td></tr>
+                                    <tr><td style="text-align:left;font-size:14px;padding-left:15px;">
+                                            <a href="/User/Logout" style="color:#ff0000;">退出登录</a></td></tr>
+                                </table>
+                            </div>
                         </li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
@@ -61,6 +72,14 @@
     <div class="wrap">        
         @RenderBody();
     </div>
-
+    <script>
+        $("#logout").hover(function () {
+            $("#logout img").attr('src', '/Resource/images/user1.jpg');
+            $("#info").slideDown();
+        }, function () {
+            $("#logout img").attr('src', '/Resource/images/user.jpg');
+            $("#info").slideUp();
+        });
+    </script>
 </body>
 </html>

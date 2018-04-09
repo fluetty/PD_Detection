@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="~/Content/CSS/bootstrap.min.css">
     <link rel="stylesheet" href="/Content/CSS/common.css">
     <link rel="stylesheet" href="/Content/CSS/header.css">
+
+    <link rel="stylesheet" href="/Content/CSS/sweetalert.css">
+    <script src="/Content/Scripts/sweetalert.min.js"></script>
+
     <script src="/Content/Scripts/jquery.min.js"></script>
     <script src="/Content/Scripts/bootstrap.min.js"></script>
 </head>
@@ -46,10 +50,23 @@
                             <a href="/User/Login" class="btn-nav btn-nav-orange btn-nav-navbar btn-nav-reg" style="margin-top:5px;
                                 height:36px;line-height:0.5;">登 录</a>
                         </li>*@
-                        <li>
-                            <a href="/User/Register" class="btn-nav btn-nav-orange btn-nav-navbar btn-nav-reg" style="margin-top:5px;
-                                height:36px;line-height:0.5;">注 册</a>
-                        </li>
+                        @{
+                            HttpCookie cook = Request.Cookies["userInfo"];
+                            if (cook != null)
+                            {
+                                <li>
+                                    <a href="/Paper/Detection" class="btn btn-orange btn-navbar btn-reg" style="margin-top:5px;
+                                        height:36px;line-height:0.4;">检测中心</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="/User/Register" class="btn btn-orange btn-navbar btn-reg" style="margin-top:5px;
+                                        height:36px;line-height:0.4;">注 册</a>
+                                </li>
+                            }
+                        }
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->

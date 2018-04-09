@@ -18,15 +18,6 @@ namespace PaperFormatDetection.Models
         public string StuType { get; set; }
         public List<Report> Reports { get; set; }
     }
-    public class Report
-    {
-        public int ReportId { get; set; }
-        public int UserId { get; set; }
-        public string PaperName { get; set; }
-        public DateTime DetectTime { get; set; }
-        public int ErrorNum { get; set; }
-        public string ReportName { get; set; }
-    }
     public class Feedback
     {
         public int FeedbackId { get; set; }
@@ -42,5 +33,6 @@ namespace PaperFormatDetection.Models
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Report> Reports { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
     } 
 }

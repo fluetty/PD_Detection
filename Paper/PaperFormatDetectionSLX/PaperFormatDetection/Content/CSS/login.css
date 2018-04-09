@@ -1,0 +1,147 @@
+﻿/*登录*/
+#login_left{
+
+}
+
+.login-area {
+    margin-top:20px;
+    /*margin-left:35%;*/
+    width: 350px;
+    height: 350px;
+    background-color:rgba(255,240,245,0.5);
+    color:#000;
+}
+
+#top {
+    margin-top: 0px;
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+    font-family: Microsoft YaHei;
+    font-size: 18px;
+}
+
+.inputarea {
+    margin-top: 15px;
+    border-radius: 5px;
+    margin-left: 25px;
+    border: solid 2px #ccc;
+    width: 300px;
+    height: 38px;
+    background-color: #fff;
+}
+
+.space {
+    width: 38px;
+    height: 100%;
+    float: left;
+    background: url(/Resource/user.png) no-repeat center center;
+    background-size: 20px 20px;
+}
+
+.space1 {
+    width: 38px;
+    height: 100%;
+    float: left;
+    background: url(/Resource/pwd.png) no-repeat center center;
+    background-size: 20px 20px;
+}
+
+input {
+    width: 255px;
+    height: 34px;
+    float: left;
+    background: none;
+    border: 0;
+    outline: none;
+    font-size:16px;
+    padding-left:8px;
+}
+#autologo {
+    margin-top: 10px;
+    margin-left: 25px;
+    width: 300px;
+    height: 40px;
+}
+
+#login-error {
+    width: 120px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 14px;
+    float: left;
+    padding-left:8px;
+}
+
+#prompt {
+    height: 35px;
+    line-height: 35px;
+    font-size: 14px;
+    text-align: right;
+    float: right;
+    padding-right:10px;
+    display: none;
+}
+
+#login {
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-left: 25px;
+    width: 300px;
+    height: 40px;
+    text-align: center;
+    color: #fff;
+    font-size: 16px;
+    line-height: 40px;
+    cursor: pointer;
+    background-image: -webkit-linear-gradient(35deg, rgb(232,88,137) 0%, rgb(232,98,123) 32%, rgb(232,108,108) 100%);
+    background-image: -o-linear-gradient(35deg, rgb(232,88,137) 0%, rgb(232,98,123) 32%, rgb(232,108,108) 100%);
+    background-image: linear-gradient(125deg, rgb(232,88,137) 0%, rgb(232,98,123) 32%, rgb(232,108,108) 100%);
+    box-shadow: 0px 8px 27px 0px rgba(116, 44, 69, 0.21);
+}
+
+#register {
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-left: 30px;
+    width: 360px;
+    height: 40px;
+    background-color:  #56b282;
+    text-align: center;
+    color: #fff;
+    font-size: 18px;
+    line-height: 40px;
+    cursor: pointer;
+}
+#otherLogin{
+    width:300px;
+    height:80px;
+    margin-left:25px;
+}
+#otherLogin > span{
+    height:80px;
+    line-height:80px;
+    padding-left:5px;
+    font-size: 13px;
+    float:left;
+}
+#qq_login{
+    margin-left:12px;
+    width:60px;
+    background: url(/Resource/images/qq.PNG) no-repeat center center;
+    background-size: 30px 30px;
+    border-radius:100%;
+}
+#weixin_login{
+    width:60px;
+    background: url(/Resource/images/weixin.PNG) no-repeat center center;
+    background-size: 36px 36px;
+    border-radius:100%;
+}
+#weibo_login{
+    width:60px;
+    background: url(/Resource/images/weibo.PNG) no-repeat center center;
+    background-size: 36px 30px;
+    border-radius:100%;
+}

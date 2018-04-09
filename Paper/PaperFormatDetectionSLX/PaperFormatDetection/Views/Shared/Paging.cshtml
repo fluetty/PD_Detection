@@ -1,0 +1,19 @@
+﻿@model PaperFormatDetection.Models.ReportViewModel
+@using PaperFormatDetection.Helper
+
+    <!--分页代码-->
+@Html.Pagination(Model.PagingInfo, (info) =>
+{
+    var pagingString = "<ul class=\"actions small\">";
+    for (var i = 1; i <= info.PageCount; i++)
+    {
+        if (i == info.PageIndex)
+        {
+            pagingString += "<li><a class=\"special\" href=\"#\">" + i + "</a></li>";
+        }
+        else
+            pagingString += "<li><a class=\"normal\" href=\"" + Url.Action("Index", new { pageIndex = i, pageSize = info.PageSize }) + "\">" + i + "</a></li>";
+    }
+    pagingString += "</ul>";
+    return pagingString;
+})

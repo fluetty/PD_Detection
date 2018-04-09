@@ -9,7 +9,7 @@ namespace PaperFormatDetection.Controllers
     public class HomeController : Controller
     {
         [Route("")]
-        [Route("index")]
+        [Route("Index")]
         [Route("Home/Index")]
         public ActionResult Index()
         {
