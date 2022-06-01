@@ -101,15 +101,16 @@ namespace PaperFormatDetection.Controllers
                 try
                 {
                     string paperType=Request.Form["paperType"];
-                    string target = Server.MapPath("/") + ("/Data/Papers/");//取得目标文件夹的路径
+                   // string target = Server.MapPath("/") + ("/Data/Reports/");//取得目标文件夹的路径
                     string filename = Util.GetTimeStamp() + "_" + file.FileName;//取得文件名字
+                    string target = @"C:\Users\高露\source\repos\PD_web\Paper\PaperFormatDetectionSLX\PaperFormatDetection\Data\Papers\";                   
                     string path = target + filename;//获取存储的目标地址
                     //paperType = "1";
                     file.SaveAs(path);
                     //可执行文件的目录
-                    string exeEnvironmentDir = @"C:/Users/Zhang_weiwei/Desktop/PD_web/Paper/PaperFormatDetection/PaperFormatDetection/bin/Debug";
+                    string exeEnvironmentDir = @"C:\Users\高露\source\repos\PD_web\Paper\PaperFormatDetection\PaperFormatDetection\bin\Debug\PaperFormatDetection.exe";
                     Process proc = new Process();
-                    proc.StartInfo.FileName = exeEnvironmentDir + "/PaperFormatDetection.exe";
+                    proc.StartInfo.FileName = exeEnvironmentDir;
                     //可以用绝对路径 
                     proc.StartInfo.Arguments = path + "  " + paperType;
                     //proc.StartInfo.CreateNoWindow = true;
@@ -118,13 +119,14 @@ namespace PaperFormatDetection.Controllers
                     proc.WaitForExit();
                     //保存数据库
                     _pdf = filename.Replace(".docx", ".pdf").Replace(".doc", ".pdf");
-                    if(System.IO.File.Exists(Server.MapPath("/") + ("/Data/Reports/")+_pdf))
+                    string target1 = @"C:\Users\高露\source\repos\PD_web\Paper\PaperFormatDetectionSLX\PaperFormatDetection\Data\Reports\";
+                    if (System.IO.File.Exists(target1 + _pdf))
                     {
                         Report report = new Report();
                         report.UserId = int.Parse(Request.Cookies["userInfo"]["stuID"]);
                         report.PaperName = filename;
                         report.DetectTime = DateTime.Now;
-                        report.ErrorNum = 0;
+                       // report.ErrorNum = 0;
                         report.ReportName = _pdf;
                         db.Reports.Add(report);
                         db.SaveChanges();
@@ -133,7 +135,7 @@ namespace PaperFormatDetection.Controllers
                     else
                     {
                         status = "NO";
-                    }
+                   }
                 }
                 catch (Exception e)
                 {
@@ -152,7 +154,8 @@ namespace PaperFormatDetection.Controllers
         public FileResult download(int id)
         {
             string reportName = db.Reports.Find(id).ReportName;
-            string filePath = Server.MapPath("/") + ("/Data/Reports/" + reportName);//路径
+            string target1 = @"C:\Users\高露\source\repos\PD_web\Paper\PaperFormatDetectionSLX\PaperFormatDetection\Data\Reports\";
+            string filePath =  target1 +  reportName;//路径
             return File(filePath, "text/plain", reportName); //客户端保存的名字
         }
         [HttpPost]

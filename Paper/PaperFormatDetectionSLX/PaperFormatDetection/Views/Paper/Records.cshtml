@@ -17,7 +17,7 @@
                     <tr>
                         <th style ="padding-left:15px;">上传时间</th>
                         <th>论文名称</th>
-                        <th>错误数目</th>
+                       
                         <th>检测报告</th>
                     </tr>
                 </thead>
@@ -27,7 +27,7 @@
                         <tr>
                             <td style="width:15%;padding-left:15px;">@Html.DisplayFor(modelItem => item.DetectTime)</td>
                             <td style="width: 60%;">@Html.DisplayFor(modelItem => item.PaperName)</td>
-                            <td style="width:10%;">@Html.DisplayFor(modelItem => item.ErrorNum)</td>
+                           
                             <td style="width:15%;">
                                 <a href=@("/Paper/Download/" + item.ReportId)>
                                     <span class="glyphicon glyphicon-download-alt"></span>

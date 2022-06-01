@@ -46,11 +46,11 @@ namespace PaperFormatDetection.Controllers
         {
             string fileName=null;
             if (id == 0)
-                fileName = "大连理工大学本科毕业论文模版.doc";
+                fileName = "大学本科毕业论文模版.doc";
             else if (id == 1)
-                fileName = "大连理工大学硕士学位论文模版.doc";
+                fileName = "大学硕士学位论文模版.doc";
             else
-                fileName = "大连理工大学博士学位论文格式规范.docx";
+                fileName = "大学博士学位论文格式规范.docx";
             string filePath = Server.MapPath("/") + ("/Resource/Template/"+fileName);//路径
             return File(filePath, "text/plain", fileName); //客户端保存的名字
         }
